@@ -1,4 +1,4 @@
-Aşağıdaki SQL sorguları ile tablolar oluşturmalı, persistence.xml içerisinde erişim bilgileri düzenlenmelidir. 
+Tables should be created with the following SQL queries, and access information should be edited in persistence.xml.
 
 ```
 -- ----------------------------
@@ -39,12 +39,12 @@ ALTER TABLE "public"."scheduled_job_logs" ADD CONSTRAINT "fk_scheduled_job_logs_
 
 ```
 
-scheduled_jobs tablosundaki period alanı saniye cinsinden doldurulmalı, name sınıfın paket ismi dahil tam adı olmalıdır.
+The period field in the scheduled_jobs table must be filled in seconds, and the name must be the full name of the class, including the package name.
 
-Örneğin:
+Example:
 
 | name  | last_fired  | next  | period  | log_enabled  |
 |---|---|---|---|---|
 | scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true |
 
-Sadece Tomcat8 ile test edildi.
+Tested only with Tomcat8.
