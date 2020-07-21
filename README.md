@@ -1,4 +1,4 @@
-Aşağıdaki SQL sorguları ile tablolar oluşturmalı, persistance.xml içerisinde erişim bilgileri düzenlenmelidir. 
+Aşağıdaki SQL sorguları ile tablolar oluşturmalı, persistence.xml içerisinde erişim bilgileri düzenlenmelidir. 
 
 ```
 -- ----------------------------
