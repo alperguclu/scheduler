@@ -55,7 +55,7 @@ Example:
 Example for daily job:
 | name  | last_fired  | next  | period  | log_enabled | days | hour |
 | ----- | ----------- | ----- | ------- | ----------- | ---- | ---- |
-| scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true | MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY | 10:00 |
+| scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  null |  0 |  true | MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY | 10:00 |
 
 
 Tested only with Tomcat8.
