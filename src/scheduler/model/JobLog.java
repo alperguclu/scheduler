@@ -10,14 +10,14 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name="scheduled_job_logs")
-@NamedQuery(name="ScheduledJobLog.findAll", query="SELECT s FROM ScheduledJobLog s")
-public class ScheduledJobLog implements Serializable {
+@Table(name="job_logs")
+@NamedQuery(name="JobLog.findAll", query="SELECT j FROM JobLog j")
+public class JobLog implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="SCHEDULED_JOB_LOGS_ID_GENERATOR", sequenceName="SCHEDULED_JOB_LOGS_ID_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SCHEDULED_JOB_LOGS_ID_GENERATOR")
+	@SequenceGenerator(name="JOB_LOGS_ID_GENERATOR", sequenceName="JOB_LOGS_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="JOB_LOGS_ID_GENERATOR")
 	private Integer id;
 
 	private String log;
@@ -26,10 +26,10 @@ public class ScheduledJobLog implements Serializable {
 
 	//bi-directional many-to-one association to ScheduledJob
 	@ManyToOne
-	@JoinColumn(name="scheduled_job_id")
-	private ScheduledJob scheduledJob;
+	@JoinColumn(name="job_id")
+	private Job job;
 
-	public ScheduledJobLog() {
+	public JobLog() {
 	}
 
 	public Integer getId() {
@@ -56,12 +56,12 @@ public class ScheduledJobLog implements Serializable {
 		this.time = time;
 	}
 
-	public ScheduledJob getScheduledJob() {
-		return this.scheduledJob;
+	public Job getJob() {
+		return this.job;
 	}
 
-	public void setScheduledJob(ScheduledJob scheduledJob) {
-		this.scheduledJob = scheduledJob;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 }

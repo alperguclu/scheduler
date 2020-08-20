@@ -2,40 +2,45 @@ Tables should be created with the following SQL queries, and access information 
 
 ```
 -- ----------------------------
--- Table structure for scheduled_jobs
+-- Table structure for jobs
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."scheduled_jobs";
-CREATE TABLE "public"."scheduled_jobs" (
-  "id" int4 NOT NULL DEFAULT nextval('scheduled_jobs_id_seq'::regclass),
+DROP TABLE IF EXISTS "public"."jobs";
+CREATE TABLE "public"."jobs" (
+  "id" int4 NOT NULL DEFAULT nextval('jobs_id_seq'::regclass),
   "name" varchar(255) COLLATE "pg_catalog"."default",
   "last_fired" timestamp(0),
   "next" timestamp(0),
   "period" int8,
-  "log_enabled" bool
-)
-;
+  "log_enabled" bool,
+  "days" varchar(255) COLLATE "pg_catalog"."default",
+  "hour" time(6)
+);
 
 -- ----------------------------
--- Table structure for scheduled_job_logs
+-- Primary Key structure for table jobs
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."scheduled_job_logs";
-CREATE TABLE "public"."scheduled_job_logs" (
-  "id" int4 NOT NULL DEFAULT nextval('scheduled_job_logs_id_seq'::regclass),
+ALTER TABLE "public"."jobs" ADD CONSTRAINT "jobs_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Table structure for job_logs
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."job_logs";
+CREATE TABLE "public"."job_logs" (
+  "id" int4 NOT NULL DEFAULT nextval('job_logs_id_seq'::regclass),
   "time" timestamp(0),
   "log" text COLLATE "pg_catalog"."default",
-  "scheduled_job_id" int4
-)
-;
+  "job_id" int4
+);
 
 -- ----------------------------
--- Primary Key structure for table scheduled_job_logs
+-- Primary Key structure for table job_logs
 -- ----------------------------
-ALTER TABLE "public"."scheduled_job_logs" ADD CONSTRAINT "scheduled_job_logs_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."job_logs" ADD CONSTRAINT "job_logs_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Foreign Keys structure for table scheduled_job_logs
+-- Foreign Keys structure for table job_logs
 -- ----------------------------
-ALTER TABLE "public"."scheduled_job_logs" ADD CONSTRAINT "fk_scheduled_job_logs_scheduled_job_id" FOREIGN KEY ("scheduled_job_id") REFERENCES "public"."scheduled_jobs" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."job_logs" ADD CONSTRAINT "fk_job_logs_job_id" FOREIGN KEY ("job_id") REFERENCES "public"."jobs" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ```
 
@@ -43,8 +48,8 @@ The period field in the scheduled_jobs table must be filled in seconds, and the 
 
 Example:
 
-| name  | last_fired  | next  | period  | log_enabled  |
-|---|---|---|---|---|
+| name  | last_fired  | next  | period  | log_enabled |
+| ----- | ----------- | ----- | ------- | ----------- |
 | scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true |
 
 Tested only with Tomcat8.

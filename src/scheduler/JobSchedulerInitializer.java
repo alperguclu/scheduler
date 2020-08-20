@@ -10,7 +10,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import scheduler.model.ScheduledJob;
+import scheduler.model.Job;
 
 @WebListener
 public class JobSchedulerInitializer implements ServletContextListener {
@@ -34,13 +34,13 @@ public class JobSchedulerInitializer implements ServletContextListener {
         	ctx.setAttribute("JobScheduler", scheduler);
     	}
 
-    	List<ScheduledJob> scheduledJobs = em.createNamedQuery("ScheduledJob.findAll", ScheduledJob.class).getResultList();
+    	List<Job> jobs = em.createNamedQuery("Job.findAll", Job.class).getResultList();
     	
-    	for(ScheduledJob scheduledJob : scheduledJobs) {
-    		scheduler.addJob(scheduledJob);
+    	for(Job job : jobs) {
+    		scheduler.addJob(job);
     	}
     	
-    	System.out.println("Context Initialized.");
+    	System.out.println("Context Initialized. Context Path: "+ctx.getContextPath());
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
