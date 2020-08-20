@@ -48,8 +48,14 @@ The period field in the scheduled_jobs table must be filled in seconds, and the 
 
 Example:
 
-| name  | last_fired  | next  | period  | log_enabled |
-| ----- | ----------- | ----- | ------- | ----------- |
-| scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true |
+| name  | last_fired  | next  | period  | log_enabled | days | hour |
+| ----- | ----------- | ----- | ------- | ----------- | ---- | ---- |
+| scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true | null | null |
+
+Example for daily job:
+| name  | last_fired  | next  | period  | log_enabled | days | hour |
+| ----- | ----------- | ----- | ------- | ----------- | ---- | ---- |
+| scheduler.jobs.Tick  | 2020-07-20 14:29:16  |  2020-07-20 14:29:21 |  5 |  true | MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY | 10:00 |
+
 
 Tested only with Tomcat8.
